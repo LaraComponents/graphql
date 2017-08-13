@@ -67,27 +67,15 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->mergeConfigFrom($this->configPath(), 'graphql');
         $this->registerCommands();
-
-        $this->app->singleton(GraphQLManager::class, function ($app) {
-            return new GraphQLManager($app);
-        });
+        $this->registerManager();
+        $this->registerTypeRegistry();
 
         $this->app->singleton(AbstractSchema::class, function ($app) {
             return $app->make(GraphQLManager::class)->schema();
         });
 
-        $this->app->alias(
-            GraphQLManager::class, GraphQLManagerContract::class
-        );
-
         $this->app->singleton(Processor::class, function ($app) {
             return new Processor($app->make(AbstractSchema::class));
-        });
-
-        $this->app->singleton('graphql.types', function ($app) {
-            $types = config('graphql.types') ?: [];
-
-            return new TypeRegistry($app, $types);
         });
     }
 
@@ -107,6 +95,36 @@ class ServiceProvider extends BaseServiceProvider
             'command.make:graphql:schema',
             'command.make:graphql:type',
         ]);
+    }
+
+    /**
+     * Register the manager.
+     *
+     * @return void
+     */
+    protected function registerManager()
+    {
+        $this->app->singleton(GraphQLManager::class, function ($app) {
+            return new GraphQLManager($app);
+        });
+
+        $this->app->alias(
+            GraphQLManager::class, GraphQLManagerContract::class
+        );
+    }
+
+    /**
+     * Register the type registry.
+     *
+     * @return void
+     */
+    protected function registerTypeRegistry()
+    {
+        $this->app->singleton('graphql.types', function ($app) {
+            $types = config('graphql.types') ?: [];
+
+            return new TypeRegistry($app, $types);
+        });
     }
 
     /**
