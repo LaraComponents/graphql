@@ -70,13 +70,13 @@ return [
 
     'response' => [
 
-        /**
+        /*
          * Any headers that will be added to the response returned by the default controller
          */
 
         'headers' => [],
 
-        /**
+        /*
          * Any json encoding options when returning a response from the default controller
          */
 
