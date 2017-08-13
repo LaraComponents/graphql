@@ -44,7 +44,7 @@ class TypeRegistry
     }
 
     /**
-     * Set type into registry
+     * Set type into registry.
      *
      * @param string $class
      * @param string $name
@@ -56,7 +56,7 @@ class TypeRegistry
     }
 
     /**
-     * Resolve type from registry
+     * Resolve type from registry.
      *
      * @param  string $type
      * @param  string $parameters
@@ -81,7 +81,7 @@ class TypeRegistry
     }
 
     /**
-     * Make a new instance of type
+     * Make a new instance of type.
      *
      * @param  string $type
      * @param  string $parameters
@@ -99,7 +99,7 @@ class TypeRegistry
     }
 
     /**
-     * Get name  from className
+     * Get name  from className.
      * @param  string $class
      * @param  string $name
      * @return string
