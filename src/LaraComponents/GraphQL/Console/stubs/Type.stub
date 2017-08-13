@@ -1,0 +1,13 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyUseType;
+
+class DummyClass extends DummyType
+{
+    public function build($config)
+    {
+
+    }
+}

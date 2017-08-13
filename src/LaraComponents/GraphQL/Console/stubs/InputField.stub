@@ -1,0 +1,19 @@
+<?php
+
+namespace DummyNamespace;
+
+use Youshido\GraphQL\Execution\ResolveInfo;
+use Youshido\GraphQL\Field\AbstractInputField;
+
+class DummyClass extends AbstractInputField
+{
+    public function getType()
+    {
+
+    }
+
+    public function resolve($value, array $args, ResolveInfo $info)
+    {
+
+    }
+}

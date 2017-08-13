@@ -1,0 +1,38 @@
+{
+    "name": "laracomponents/graphql",
+    "description": "GraphQL & Relay for laravel",
+    "keywords": ["laravel", "graphql", "relay", "api"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nikita Stenin",
+            "email": "stenin.nikita@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "https://github.com/LaraComponents/graphql",
+    "support": {
+        "issues": "https://github.com/LaraComponents/graphql/issues",
+        "source": "https://github.com/LaraComponents/graphql"
+    },
+    "require": {
+        "php": ">=5.6.4",
+        "youshido/graphql": "^1.5"
+    },
+    "require-dev": {
+        "orchestra/testbench": "3.1.*|3.2.*|3.3.*|3.4.*",
+        "phpunit/phpunit": "~4.0|~5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaraComponents\\GraphQL\\": "src/LaraComponents/GraphQL/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaraComponents\\GraphQL\\Test\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
