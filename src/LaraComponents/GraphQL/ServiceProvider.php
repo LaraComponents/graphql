@@ -45,7 +45,9 @@ class ServiceProvider extends BaseServiceProvider
     protected function bootRouter()
     {
         $router = $this->app->make('router');
-        $router->namespace($this->namespace)->group(__DIR__.'/routes.php');
+        $router->group(['namespace' => $this->namespace], function () {
+            return __DIR__.'/routes.php';
+        });
     }
 
     /**
