@@ -32,8 +32,7 @@ class GraphQLController extends Controller
 
         if (array_keys($queries) === range(0, count($queries) - 1)) {
             $isMultiQueryRequest = true;
-        }
-        else {
+        } else {
             $queries = [$queries];
         }
 

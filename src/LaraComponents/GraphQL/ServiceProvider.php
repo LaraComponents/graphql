@@ -41,7 +41,7 @@ class ServiceProvider extends BaseServiceProvider
 
         $router->group([
             'prefix' => config('graphql.route.prefix'),
-            'middleware' => config('graphql.route.middleware')
+            'middleware' => config('graphql.route.middleware'),
         ], function () {
             include __DIR__.'/routes.php';
         });
