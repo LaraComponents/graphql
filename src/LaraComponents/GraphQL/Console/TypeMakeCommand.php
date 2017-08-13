@@ -3,7 +3,6 @@
 namespace LaraComponents\GraphQL\Console;
 
 use Illuminate\Console\GeneratorCommand;
-use Symfony\Component\Console\Input\InputOption;
 
 class TypeMakeCommand extends GeneratorCommand
 {
@@ -12,7 +11,7 @@ class TypeMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature  = 'make:graphql:type {name} {--force : Create the class even if the type already exists.}
+    protected $signature = 'make:graphql:type {name} {--force : Create the class even if the type already exists.}
                                                       {--type= : Create a specific type.}';
 
     /**
@@ -126,6 +125,7 @@ class TypeMakeCommand extends GeneratorCommand
 
         if (array_key_exists($optionType, $this->graphqlTypes)) {
             $this->graphqlType = $optionType;
+
             return;
         }
 
@@ -140,7 +140,7 @@ class TypeMakeCommand extends GeneratorCommand
     protected function promptForType()
     {
         $choice = $this->choice(
-            "Which type would you like to create?",
+            'Which type would you like to create?',
             array_map(function ($type) {
                 return '<comment>'.$type.'</comment>';
             }, array_keys($this->graphqlTypes))

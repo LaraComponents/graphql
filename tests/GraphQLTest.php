@@ -5,7 +5,7 @@ namespace LaraComponents\GraphQL\Test;
 class GraphQLTest extends TestCase
 {
     /**
-     * Test schema default
+     * Test schema default.
      *
      * @test
      */
@@ -19,7 +19,7 @@ class GraphQLTest extends TestCase
     }
 
     /**
-     * Test endpoint
+     * Test endpoint.
      *
      * @test
      */
@@ -32,13 +32,13 @@ class GraphQLTest extends TestCase
         $this->assertArrayHasKey('errors', $content);
         $this->assertEquals($content['errors'], [
             [
-                'message' => 'Must provide an operation.'
+                'message' => 'Must provide an operation.',
             ],
         ]);
     }
 
     /**
-     * Test schema default
+     * Test schema default.
      *
      * @test
      */
