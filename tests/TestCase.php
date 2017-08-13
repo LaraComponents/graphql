@@ -23,16 +23,6 @@ class TestCase extends Orchestra
     {
         $app['config']->set('graphql.schema', 'default');
         $app['config']->set('graphql.schemas.default', Schema::class);
-        $app['config']->set('graphql.route', [
-            'prefix' => 'graphql',
-            'middleware' => [],
-            'methods' => ['GET', 'POST'],
-            'controller' => '\LaraComponents\GraphQL\GraphQLController@index',
-        ]);
-        $app['config']->set('graphql.response', [
-            'headers' => [],
-            'json_pretty' => false,
-        ]);
     }
 
     protected function getPackageProviders($app)

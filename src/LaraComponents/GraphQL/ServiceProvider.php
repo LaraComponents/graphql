@@ -4,6 +4,7 @@ namespace LaraComponents\GraphQL;
 
 use Youshido\GraphQL\Execution\Processor;
 use Youshido\GraphQL\Schema\AbstractSchema;
+use LaraComponents\GraphQL\Helpers\TypeRegistry;
 use LaraComponents\GraphQL\Console\TypeMakeCommand;
 use LaraComponents\GraphQL\Console\FieldMakeCommand;
 use LaraComponents\GraphQL\Console\SchemaMakeCommand;
@@ -81,6 +82,12 @@ class ServiceProvider extends BaseServiceProvider
 
         $this->app->singleton(Processor::class, function ($app) {
             return new Processor($app->make(AbstractSchema::class));
+        });
+
+        $this->app->singleton('graphql.types', function ($app) {
+            $types = config('graphql.types') ?: [];
+
+            return new TypeRegistry($app, $types);
         });
     }
 
