@@ -4,7 +4,7 @@
 <a href="https://travis-ci.org/LaraComponents/graphql"><img src="https://travis-ci.org/LaraComponents/graphql.svg?branch=master" alt="Build Status"></a>
 <a href="https://github.com/LaraComponents/graphql/releases"><img src="https://img.shields.io/github/release/LaraComponents/graphql.svg?style=flat-square" alt="Latest Version"></a>
 <a href="https://scrutinizer-ci.com/g/LaraComponents/graphql"><img src="https://img.shields.io/scrutinizer/g/LaraComponents/graphql.svg?style=flat-square" alt="Quality Score"></a>
-<a href="https://styleci.io/repos/77400544"><img src="https://styleci.io/repos/77400544/shield" alt="StyleCI"></a>
+<a href="https://styleci.io/repos/100171096"><img src="https://styleci.io/repos/100171096/shield" alt="StyleCI"></a>
 <a href="https://packagist.org/packages/LaraComponents/graphql"><img src="https://img.shields.io/packagist/dt/LaraComponents/graphql.svg?style=flat-square" alt="Total Downloads"></a>
 <a href="https://github.com/LaraComponents/graphql/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Software License"></a>
 </p>
