@@ -11,8 +11,7 @@ class FieldMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:graphql:field {name} {--force : Create the class even if the field already exists.}
-                                               {--input : Create Input field.}';
+    protected $signature = 'make:graphql:field {name} {--input : Create Input field.}';
 
     /**
      * The console command description.
@@ -27,18 +26,6 @@ class FieldMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $type = 'Field';
-
-    /**
-     * Execute the console command.
-     *
-     * @return void
-     */
-    public function fire()
-    {
-        if (parent::fire() === false && ! $this->option('force')) {
-            return;
-        }
-    }
 
     /**
      * Get the stub file for the generator.

@@ -3,8 +3,8 @@
 namespace DummyNamespace;
 
 use Youshido\GraphQL\Schema\AbstractSchema;
-use Youshido\GraphQL\Config\Schema\SchemaConfig;
 use Youshido\GraphQL\Type\Scalar\StringType;
+use Youshido\GraphQL\Config\Schema\SchemaConfig;
 
 class DummyClass extends AbstractSchema
 {

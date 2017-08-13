@@ -11,8 +11,7 @@ class TypeMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:graphql:type {name} {--force : Create the class even if the type already exists.}
-                                                      {--type= : Create a specific type.}';
+    protected $signature = 'make:graphql:type {name} {--type= : Create a specific type.}';
 
     /**
      * The console command description.
@@ -35,6 +34,11 @@ class TypeMakeCommand extends GeneratorCommand
      */
     protected $graphqlType = null;
 
+    /**
+     * The list of type and namespaces.
+     *
+     * @var array
+     */
     protected $graphqlTypes = [
         'AbstractType' => 'Youshido\GraphQL\Type\AbstractType',
         'AbstractScalarType' => 'Youshido\GraphQL\Type\Scalar\AbstractScalarType',
@@ -61,36 +65,6 @@ class TypeMakeCommand extends GeneratorCommand
         $stub = $this->replaceDummy($stub, $this->graphqlType, 'DummyType');
 
         return $this->replaceDummy($stub, $this->graphqlTypes[$this->graphqlType], 'DummyUseType');
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return bool|null
-     */
-    public function fire()
-    {
-        $name = $this->qualifyClass($this->getNameInput());
-
-        $path = $this->getPath($name);
-
-        // First we will check to see if the class already exists. If it does, we don't want
-        // to create the class and overwrite the user's code. So, we will bail out so the
-        // code is untouched. Otherwise, we will continue generating this class' files.
-        if ($this->alreadyExists($this->getNameInput()) && ! $this->option('force')) {
-            $this->error($this->type.' already exists!');
-
-            return false;
-        }
-
-        // Next, we will generate the path to the location where this class' file should get
-        // written. Then, we will build the class and make the proper replacements on the
-        // stub files so that it gets the correctly formatted namespace and class name.
-        $this->makeDirectory($path);
-
-        $this->files->put($path, $this->buildClass($name));
-
-        $this->info($this->type.' created successfully.');
     }
 
     /**

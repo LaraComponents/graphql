@@ -11,7 +11,7 @@ class SchemaMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:graphql:schema {name} {--force : Create the class even if the schema already exists.}';
+    protected $signature = 'make:graphql:schema {name}';
 
     /**
      * The console command description.
@@ -26,18 +26,6 @@ class SchemaMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $type = 'Schema';
-
-    /**
-     * Execute the console command.
-     *
-     * @return void
-     */
-    public function fire()
-    {
-        if (parent::fire() === false && ! $this->option('force')) {
-            return;
-        }
-    }
 
     /**
      * Get the stub file for the generator.
