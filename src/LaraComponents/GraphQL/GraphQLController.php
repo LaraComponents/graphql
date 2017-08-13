@@ -9,88 +9,43 @@ use Youshido\GraphQL\Execution\Processor;
 
 class GraphQLController extends Controller
 {
-    public function query(Request $request, Processor $processor)
+    public function index(Request $request, Processor $processor)
     {
         list($queries, $isMultiQueryRequest) = $this->getPayload($request);
 
-        $queryResponses = array_map(function ($queryData) use ($processor) {
-            return $this->executeQuery($processor, $queryData['query'], $queryData['variables']);
+        $response = array_map(function ($query) use ($processor) {
+            return $this->executeQuery($processor, $query);
         }, $queries);
 
-        $response = new JsonResponse(
-            $isMultiQueryRequest ? $queryResponses : $queryResponses[0],
+        return new JsonResponse(
+            $isMultiQueryRequest ? $response : $response[0],
             200,
-            config('graphql.response.headers')
+            config('graphql.response.headers', []),
+            config('graphql.response.json_options', 0)
         );
-
-        if (config('graphql.response.json_pretty')) {
-            $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
-        }
-
-        return $response;
-    }
-
-    protected function executeQuery($processor, $query, $variables)
-    {
-        $processor->processPayload($query, $variables);
-
-        return $processor->getResponseData();
     }
 
     protected function getPayload(Request $request)
     {
-        $query = $request->get('query', null);
-        $variables = $request->get('variables', []);
         $isMultiQueryRequest = false;
+        $queries = $request->all();
 
-        $queries = [];
-
-        $variables = is_string($variables) ? json_decode($variables, true) ?: [] : [];
-
-        $content = $request->getContent();
-        if (! empty($content)) {
-            if ($request->headers->has('Content-Type') && 'application/graphql' == $request->headers->get('Content-Type')) {
-                $queries[] = [
-                    'query' => $content,
-                    'variables' => [],
-                ];
-            } else {
-                $params = json_decode($content, true);
-                if ($params) {
-                    // check for a list of queries
-                    if (isset($params[0]) === true) {
-                        $isMultiQueryRequest = true;
-                    } else {
-                        $params = [$params];
-                    }
-
-                    foreach ($params as $queryParams) {
-                        $query = isset($queryParams['query']) ? $queryParams['query'] : $query;
-
-                        if (isset($queryParams['variables'])) {
-                            if (is_string($queryParams['variables'])) {
-                                $variables = json_decode($queryParams['variables'], true) ?: $variables;
-                            } else {
-                                $variables = $queryParams['variables'];
-                            }
-
-                            $variables = is_array($variables) ? $variables : [];
-                        }
-
-                        $queries[] = [
-                            'query' => $query,
-                            'variables' => $variables,
-                        ];
-                    }
-                }
-            }
-        } else {
-            $queries[] = [
-                'query' => $query,
-                'variables' => $variables,
-            ];
+        if (array_keys($queries) === range(0, count($queries) - 1)) {
+            $isMultiQueryRequest = true;
+        }
+        else {
+            $queries = [$queries];
         }
 
         return [$queries, $isMultiQueryRequest];
+    }
+
+    protected function executeQuery($processor, $input)
+    {
+        $query = array_get($input, 'query', null);
+        $variables = array_get($input, 'variables');
+        $variables = is_string($variables) ? json_decode($variables, true) ?: [] : [];
+
+        return $processor->processPayload($query, $variables)->getResponseData();
     }
 }

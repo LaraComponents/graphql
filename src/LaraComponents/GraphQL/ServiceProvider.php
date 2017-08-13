@@ -3,10 +3,12 @@
 namespace LaraComponents\GraphQL;
 
 use Youshido\GraphQL\Execution\Processor;
+use Youshido\GraphQL\Schema\AbstractSchema;
 use LaraComponents\GraphQL\Console\TypeMakeCommand;
 use LaraComponents\GraphQL\Console\FieldMakeCommand;
 use LaraComponents\GraphQL\Console\SchemaMakeCommand;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use LaraComponents\GraphQL\Contracts\GraphQLManager as GraphQLManagerContract;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -16,15 +18,6 @@ class ServiceProvider extends BaseServiceProvider
      * @var bool
      */
     protected $defer = false;
-
-    /**
-     * This namespace is applied to your controller routes.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
-    protected $namespace = 'LaraComponents\GraphQL';
 
     /**
      * Bootstrap any application services.
@@ -45,7 +38,11 @@ class ServiceProvider extends BaseServiceProvider
     protected function bootRouter()
     {
         $router = $this->app->make('router');
-        $router->group(['namespace' => $this->namespace], function () {
+
+        $router->group([
+            'prefix' => config('graphql.route.prefix'),
+            'middleware' => config('graphql.route.middleware')
+        ], function () {
             include __DIR__.'/routes.php';
         });
     }
@@ -70,12 +67,20 @@ class ServiceProvider extends BaseServiceProvider
         $this->mergeConfigFrom($this->configPath(), 'graphql');
         $this->registerCommands();
 
-        $this->app->singleton('graphql.schema', function ($app) {
-            return $app->make(config('graphql.schema'));
+        $this->app->singleton(GraphQLManager::class, function ($app) {
+            return new GraphQLManager($app);
         });
 
+        $this->app->singleton(AbstractSchema::class, function ($app) {
+            return $app->make(GraphQLManager::class)->schema();
+        });
+
+        $this->app->alias(
+            GraphQLManager::class, GraphQLManagerContract::class
+        );
+
         $this->app->singleton(Processor::class, function ($app) {
-            return new Processor($app->make('graphql.schema'));
+            return new Processor($app->make(AbstractSchema::class));
         });
     }
 

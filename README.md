@@ -15,7 +15,7 @@ GraphQL & Relay for Laravel
 ## Requirements
 
 - PHP 5.6.4+ or newer
-- Laravel 5.4 or newer
+- Laravel 5.1 or newer
 
 ## Installation
 

@@ -2,6 +2,7 @@
 
 namespace LaraComponents\GraphQL\Test;
 
+use Youshido\GraphQL\Execution\Processor;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -15,12 +16,19 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $this->processor = $this->app->make(\Youshido\GraphQL\Execution\Processor::class);
+        $this->processor = $this->app->make(Processor::class);
     }
 
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('graphql.schema', Schema::class);
+        $app['config']->set('graphql.schema', 'default');
+        $app['config']->set('graphql.schemas.default', Schema::class);
+        $app['config']->set('graphql.route', [
+            'prefix' => 'graphql',
+            'middleware' => [],
+            'methods' => ['GET', 'POST'],
+            'controller' => '\LaraComponents\GraphQL\GraphQLController@index',
+        ]);
         $app['config']->set('graphql.response', [
             'headers' => [],
             'json_pretty' => false,

@@ -2,6 +2,8 @@
 
 namespace LaraComponents\GraphQL\Test;
 
+use Youshido\GraphQL\Schema\AbstractSchema;
+
 class GraphQLTest extends TestCase
 {
     /**
@@ -11,9 +13,8 @@ class GraphQLTest extends TestCase
      */
     public function testSchema()
     {
-        $schema = $this->app->make('graphql.schema');
+        $schema = $this->app->make(AbstractSchema::class);
 
-        $this->assertEquals(Schema::class, config('graphql.schema'));
         $this->assertInstanceOf(Schema::class, $schema);
         $this->assertInstanceOf(Schema::class, $this->processor->getExecutionContext()->getSchema());
     }
