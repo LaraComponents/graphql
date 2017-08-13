@@ -46,7 +46,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         $router = $this->app->make('router');
         $router->group(['namespace' => $this->namespace], function () {
-            return __DIR__.'/routes.php';
+            include __DIR__.'/routes.php';
         });
     }
 
