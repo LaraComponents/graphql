@@ -13,7 +13,7 @@ class GraphQLController extends Controller
     {
         list($queries, $isMultiQueryRequest) = $this->getPayload($request);
 
-        $queryResponses = array_map(function($queryData) use($processor) {
+        $queryResponses = array_map(function ($queryData) use ($processor) {
             return $this->executeQuery($processor, $queryData['query'], $queryData['variables']);
         }, $queries);
 
@@ -24,7 +24,7 @@ class GraphQLController extends Controller
         );
 
         if (config('graphql.response.json_pretty')) {
-             $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
+            $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
         }
 
         return $response;

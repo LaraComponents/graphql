@@ -2,11 +2,11 @@
 
 namespace LaraComponents\GraphQL;
 
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Youshido\GraphQL\Execution\Processor;
+use LaraComponents\GraphQL\Console\TypeMakeCommand;
 use LaraComponents\GraphQL\Console\FieldMakeCommand;
 use LaraComponents\GraphQL\Console\SchemaMakeCommand;
-use LaraComponents\GraphQL\Console\TypeMakeCommand;
-use Youshido\GraphQL\Execution\Processor;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -38,7 +38,7 @@ class ServiceProvider extends BaseServiceProvider
     }
 
     /**
-     * Bootstrap router
+     * Bootstrap router.
      *
      * @return void
      */
@@ -49,7 +49,7 @@ class ServiceProvider extends BaseServiceProvider
     }
 
     /**
-     * Bootstrap publishes
+     * Bootstrap publishes.
      *
      * @return void
      */
@@ -78,7 +78,7 @@ class ServiceProvider extends BaseServiceProvider
     }
 
     /**
-     * Register console commands
+     * Register console commands.
      *
      * @return void
      */
@@ -96,12 +96,12 @@ class ServiceProvider extends BaseServiceProvider
     }
 
     /**
-     * Return GraphQL config path
+     * Return GraphQL config path.
      *
      * @return string
      */
     protected function configPath()
     {
-        return __DIR__ . '/../../config/graphql.php';
+        return __DIR__.'/../../config/graphql.php';
     }
 }

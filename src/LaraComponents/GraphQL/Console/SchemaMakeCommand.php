@@ -3,7 +3,6 @@
 namespace LaraComponents\GraphQL\Console;
 
 use Illuminate\Console\GeneratorCommand;
-use Symfony\Component\Console\Input\InputOption;
 
 class SchemaMakeCommand extends GeneratorCommand
 {
@@ -12,7 +11,7 @@ class SchemaMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature  = 'make:graphql:schema {name} {--force : Create the class even if the schema already exists.}';
+    protected $signature = 'make:graphql:schema {name} {--force : Create the class even if the schema already exists.}';
 
     /**
      * The console command description.
