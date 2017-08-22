@@ -43,7 +43,10 @@ class GraphQLController extends Controller
     {
         $query = array_get($input, 'query', null);
         $variables = array_get($input, 'variables');
-        $variables = is_string($variables) ? json_decode($variables, true) ?: [] : [];
+
+        if (! is_array($variables)) {
+            $variables = is_string($variables) ? json_decode($variables, true) ?: [] : [];
+        }
 
         return $processor->processPayload($query, $variables)->getResponseData();
     }
